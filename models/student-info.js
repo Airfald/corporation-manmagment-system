@@ -38,6 +38,15 @@ const studentInfo = db.define('student_info', {
   class: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  isAdmin: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: 0
+  },
+  test: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 }, {
   // createdAt: 'create_time',
