@@ -1,55 +1,47 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const studentInfo = db.define('student_info', {
-  id: {
+const activity = db.define('activity', {
+  activityId: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     allowNull: false
   },
-  name: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  telphone: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  sex: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  age: {
+  corporationId: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   },
   department: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  class: {
+  activityName: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  isAdmin: {
-    type: Sequelize.BOOLEAN,
+  description: {
+    type: Sequelize.STRING,
     allowNull: true,
-    defaultValue: false
-  }
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  time: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  contactName: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  contactPhone: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 }, {
-  // createdAt: 'create_time',
-  // updatedAt: 'update_time',
-  // tableName: 'student_info'
   freezeTableName: true,      // 默认为false, 会自动改变表名称从而报错不存在改表
   timestamps: true           // 默认为true自动生成createdAt, updatedAt字段
 });
 
-module.exports = studentInfo;
+module.exports = activity;

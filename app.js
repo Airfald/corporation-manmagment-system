@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var userRole = require('./routes/user-role');
 var leaveMessage = require('./routes/leave-message');
+var activity = require('./routes/activity');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(userRole)
 app.use(leaveMessage)
+app.use(activity)
 
 app.use(function (req, res, next) {
   console.log('中间节')
