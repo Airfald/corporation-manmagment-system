@@ -3,7 +3,7 @@ var router = express.Router();
 var userRoleController = require('../controllers/user-role')
 
 /* GET users listing. */
-router.get('/login', userRoleController.login);
-router.get('/adminLogin', userRoleController.adminLogin);
+router.post('/login', userRoleController.login);
+router.post('/adminLogin', userRoleController.adminLogin);
 
 module.exports = router;
