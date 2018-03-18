@@ -2,17 +2,17 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-14 18:07:23
+ * @Last Modified time: 2018-03-18 18:50:05
  */
 var RESPONSE_STATUS = require('../config/status')
 var studentInfoModel = require('../models/student-info')
 
 function login (req, res, next) {
-  var studentId = req.body.id
+  var studentName = req.body.name
   var studentPassword = req.body.password
   var errCode = 0
   studentInfoModel.findOne({
-    where: { id: studentId }
+    where: { name: studentName }
   }).then(student => {
     console.log(studentPassword)
     if (student === null) {

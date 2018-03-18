@@ -4,14 +4,39 @@ const db = require('../db');
 const studentInfo = db.define('student_info', {
   id: {
     type: Sequelize.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
     allowNull: false
+  },
+  grade: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  department: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  class: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  number: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
   },
   name: {
     type: Sequelize.STRING,
     allowNull: true,
   },
   password: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  sex: {
     type: Sequelize.STRING,
     allowNull: true,
   },
@@ -23,33 +48,22 @@ const studentInfo = db.define('student_info', {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  sex: {
-    type: Sequelize.STRING,
+  createdAt: {
+    field: 'created_at',
+    type: Sequelize.DATE,
     allowNull: true,
   },
-  age: {
-    type: Sequelize.INTEGER,
-    allowNull: true
-  },
-  department: {
-    type: Sequelize.STRING,
+  updatedAt: {
+    field: 'updated_at',
+    type: Sequelize.DATE,
     allowNull: true,
-  },
-  class: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  isAdmin: {
-    type: Sequelize.BOOLEAN,
-    allowNull: true,
-    defaultValue: false
   }
 }, {
-  // createdAt: 'create_time',
-  // updatedAt: 'update_time',
+  // createdAt: 'created_at',
+  // updatedAt: 'updated_at',
   // tableName: 'student_info'
   freezeTableName: true,      // 默认为false, 会自动改变表名称从而报错不存在改表
-  timestamps: true           // 默认为true自动生成createdAt, updatedAt字段
+  timestamps: false           // 默认为true自动生成createdAt, updatedAt字段
 });
 
 module.exports = studentInfo;
