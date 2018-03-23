@@ -6,4 +6,7 @@ var userRoleController = require('../controllers/user-role')
 router.post('/login', userRoleController.login);
 router.post('/adminLogin', userRoleController.adminLogin);
 
+// 创建用户
+router.post('/createUser', userRoleController.createUser);
+
 module.exports = router;
