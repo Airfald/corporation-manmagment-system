@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const utils = require('../utils/common')
 
 const studentInfoModel = utils.defineModel('student_info', {

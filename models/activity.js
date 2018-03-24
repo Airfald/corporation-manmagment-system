@@ -1,25 +1,18 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+/*
+ * @Author: 欧贺福
+ * @Date: 2018-03-23 10:51:48
+ * @Last Modified by: 欧贺福
+ * @Last Modified time: 2018-03-24 10:39:26
+ */
+const Sequelize = require('sequelize')
+const utils = require('../utils/common')
 
-const activity = db.define('activity', {
-  activityId: {
+const activityModel = utils.defineModel('activity', {
+  admin_id: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
-    allowNull: false
-  },
-  corporationId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  department: {
-    type: Sequelize.STRING,
     allowNull: true,
   },
-  activityName: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  description: {
+  name: {
     type: Sequelize.STRING,
     allowNull: true,
   },
@@ -27,21 +20,22 @@ const activity = db.define('activity', {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   time: {
     type: Sequelize.DATE,
     allowNull: true,
   },
-  contactName: {
+  chargeName: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  contactPhone: {
+  chargeTelphone: {
     type: Sequelize.STRING,
     allowNull: true,
-  },
-}, {
-  freezeTableName: true,      // 默认为false, 会自动改变表名称从而报错不存在改表
-  timestamps: true           // 默认为true自动生成createdAt, updatedAt字段
-});
+  }
+})
 
-module.exports = activity;
+module.exports = activityModel

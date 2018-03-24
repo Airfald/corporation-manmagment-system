@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-22 16:25:19
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-23 12:29:57
+ * @Last Modified time: 2018-03-24 10:49:55
  * /
 /**
  * 自己封装一层通过此函数自动加上id, created_at, update_at等字段
@@ -44,7 +44,7 @@ function defineModel (modelName, modelObject) {
  * @returns
  */
 function splitWord (string) {
-  return string.replace(/{[A-Z]}/, '_$1').toLowerCase()
+  // return string.replace(/{[A-Z]}/, '_$1').toLowerCase()
 
   let resultString = ''
   let letterArr = []
