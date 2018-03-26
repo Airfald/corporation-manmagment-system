@@ -5,9 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var userRole = require('./routes/user-role');
-var leaveMessage = require('./routes/leave-message');
-var activity = require('./routes/activity');
+const routes = require('./routes');
 
 var app = express();
 
@@ -23,9 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(userRole)
-app.use(leaveMessage)
-app.use(activity)
+// 遍历所有路由表
+for(let key in routes) {
+  app.use(routes[key]);
+}
 
 app.use(function (req, res, next) {
   console.log('中间节')

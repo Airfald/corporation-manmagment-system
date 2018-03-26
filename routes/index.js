@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const userRoleRouter = require('./user-role')
+const activityRouter = require('./activity')
+const announcementRouter = require('./announcement')
+const leaveMessage = require('./leave-message')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Airfald' });
-});
-
-module.exports = router;
+module.exports = {
+  userRoleRouter,
+  announcementRouter,
+  activityRouter,
+  leaveMessage
+}
