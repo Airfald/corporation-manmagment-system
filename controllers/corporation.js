@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-26 18:36:48
+ * @Last Modified time: 2018-03-26 20:01:35
  */
 var RESPONSE_STATUS = require('../config/status')
 var corporationModel = require('../models/corporation')
@@ -16,7 +16,7 @@ function create (req, res, next) {
   let data = req.body
   corporationModel.create({
     name: data.name,
-    content: data.content
+    description: data.description
   }).then(corporation => {
     res.json({
       errCode: 0,
