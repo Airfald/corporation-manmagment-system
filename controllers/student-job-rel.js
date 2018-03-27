@@ -2,12 +2,12 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 13:47:49
+ * @Last Modified time: 2018-03-27 13:55:31
  */
 const RESPONSE_STATUS = require('../config/status')
 const studentJobRelModel = require('../models/student-job-rel')
 /**
- * 新建一个学生社团关联表
+ * 新建一个学生职位关联表
  * @param {any} req
  * @param {any} res
  * @param {any} next
@@ -28,7 +28,7 @@ function create (req, res, next) {
   })
 }
 /**
- * 删除一学生社团关联表
+ * 删除一学生职位关联表
  * @param {any} req
  * @param {any} res
  * @param {any} next
@@ -58,7 +58,7 @@ function deleteStudentJobRel (req, res, next) {
   })
 }
 /**
- * 更学生社团关联表信息
+ * 更学生职位关联表信息
  * @param {any} req
  * @param {any} res
  * @param {any} next
