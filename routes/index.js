@@ -1,15 +1,18 @@
-const userRoleRouter = require('./user-role')
-const activityRouter = require('./activity')
-const announcementRouter = require('./announcement')
-const leaveMessage = require('./leave-message')
+const userRole = require('./user-role')
+const activity = require('./activity')
+const announcement = require('./announcement')
 const corporation = require('./corporation')
 const department = require('./department')
+const job = require('./job')
+const leaveMessage = require('./leave-message')
+
 
 module.exports = {
-  userRoleRouter,
-  announcementRouter,
-  activityRouter,
-  leaveMessage,
+  userRole,
+  announcement,
+  activity,
   corporation,
-  department
+  department,
+  job,
+  leaveMessage
 }

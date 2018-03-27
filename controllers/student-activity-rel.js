@@ -2,10 +2,10 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 09:44:01
+ * @Last Modified time: 2018-03-27 10:25:18
  */
 const RESPONSE_STATUS = require('../config/status')
-const leaveMessageModel = require('../models/leave-message')
+const studentActivityRelModel = require('../models/student-activity-rel')
 /**
  * 新建一个留言
  * @param {any} req
@@ -14,15 +14,14 @@ const leaveMessageModel = require('../models/leave-message')
  */
 function create (req, res, next) {
   let data = req.body
-  leaveMessageModel.create({
+  studentActivityRelModel.create({
     studentId: data.studentId,
-    corporationId: data.corporationId,
-    content: data.content
-  }).then(leaveMessage => {
+    activityId: data.activityId
+  }).then(studentActivityRel => {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: leaveMessage
+      value: studentActivityRel
     })
   })
 }
@@ -32,26 +31,26 @@ function create (req, res, next) {
  * @param {any} res
  * @param {any} next
  */
-function deleteLeaveMessage (req, res, next) {
-  let leaveMessageId = req.query.id
-  leaveMessageModel.findOne({
-    where: { id: leaveMessageId }
-  }).then(leaveMessage => {
-    if (leaveMessage !== null) {
-      leaveMessageModel.destroy({
-        where: { id: leaveMessageId }
+function deleteStudentActivityRel (req, res, next) {
+  let studentActivityRelId = req.query.id
+  studentActivityRelModel.findOne({
+    where: { id: studentActivityRelId }
+  }).then(studentActivityRel => {
+    if (studentActivityRel !== null) {
+      studentActivityRelModel.destroy({
+        where: { id: studentActivityRelId }
       }).then(data => {
         res.json({
           errCode: 0,
           errMsg: RESPONSE_STATUS[0],
-          value: leaveMessage
+          value: studentActivityRel
         })
       })
     } else {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1],
-        value: leaveMessage
+        value: studentActivityRel
       })
     }
   })
@@ -64,20 +63,20 @@ function deleteLeaveMessage (req, res, next) {
  */
 function update (req, res, next) {
   let data = req.body
-  let leaveMessageId = req.body.id
+  let studentActivityRelId = req.body.id
   let filedObj = {}
   for (let key in data) {
     if (key !== 'id') {
       filedObj[key] = data[key]
     }
   }
-  leaveMessageModel.update(filedObj, {
-    where: { id: leaveMessageId }
-  }).then(leaveMessage => {
+  studentActivityRelModel.update(filedObj, {
+    where: { id: studentActivityRelId }
+  }).then(studentActivityRel => {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: leaveMessage
+      value: studentActivityRel
     })
   })
 }
@@ -88,21 +87,21 @@ function update (req, res, next) {
  * @param {any} next
  */
 function view (req, res, next) {
-  let leaveMessageId = req.query.id
-  leaveMessageModel.findOne({
-    where: { id: leaveMessageId }
-  }).then(leaveMessage => {
-    if (leaveMessage !== null) {
+  let studentActivityRelId = req.query.id
+  studentActivityRelModel.findOne({
+    where: { id: studentActivityRelId }
+  }).then(studentActivityRel => {
+    if (studentActivityRel !== null) {
       res.json({
         errCode: 0,
         errMsg: RESPONSE_STATUS[0],
-        value: leaveMessage
+        value: studentActivityRel
       })
     } else {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1],
-        value: leaveMessage
+        value: studentActivityRel
       })
     }
   })
@@ -110,7 +109,7 @@ function view (req, res, next) {
 
 module.exports = {
   create,
-  deleteLeaveMessage,
+  deleteStudentActivityRel,
   update,
   view
 }
