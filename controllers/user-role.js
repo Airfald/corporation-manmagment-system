@@ -2,10 +2,11 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-24 14:42:37
+ * @Last Modified time: 2018-03-27 16:16:49
  */
-var RESPONSE_STATUS = require('../config/status')
-var studentInfoModel = require('../models/student-info')
+const jwt = require('jsonwebtoken')
+const RESPONSE_STATUS = require('../config/status')
+const studentInfoModel = require('../models/student-info')
 /**
  * 用户登录 post
  * @param {any} req
@@ -13,9 +14,9 @@ var studentInfoModel = require('../models/student-info')
  * @param {any} next
  */
 function login (req, res, next) {
-  var studentName = req.body.name
-  var studentNumber = req.body.number
-  var studentPassword = req.body.password
+  let studentName = req.body.name
+  let studentNumber = req.body.number
+  let studentPassword = req.body.password
   studentInfoModel.findOne({
     where: { number: studentNumber }
   }).then(student => {
@@ -23,20 +24,24 @@ function login (req, res, next) {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1]
-      });
+      })
     }
     if (student.password !== studentPassword) {
       res.json({
         errCode: 2,
         errMsg: RESPONSE_STATUS[2]
-      });
+      })
     }
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: student
-    });
-  });
+      value: student,
+      accessToken: jwt.sign({ number: studentNumber },
+        'secret', {
+          expiresIn: 60 * 60 * 24            // token过期时间: 24小时
+      })
+    })
+  })
 }
 
 /**
@@ -56,20 +61,20 @@ function adminLogin (req, res, next) {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1]
-      });
+      })
     }
     if (admin.password !== adminPassword) {
       res.json({
         errCode: 2,
         errMsg: RESPONSE_STATUS[2]
-      });
+      })
     }
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[errCode],
       value: admin
-    });
-  });
+    })
+  })
 }
 /**
  * 创建一个用户 post

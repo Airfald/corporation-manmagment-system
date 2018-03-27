@@ -1,18 +1,20 @@
 /*
- * 返回状态码与消息
- *
- * @Author: Junkai Chen
- * @Date: 2017-11-06 10:45:20
- * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 10:05:38
+ * @Author: 欧贺福
+ * @Date: 2018-03-27 16:02:00
+ * @Last Modified by:   欧贺福
+ * @Last Modified time: 2018-03-27 16:02:00
  */
+
 
 const RESPONSE_STATUS = {
   '0': '请求成功',
   '1': '用户不存在',
   '2': '密码错误',
   '3': '用户已存在',
-  '4': '接口不存在'
+  '4': '接口不存在',
+  '5': 'token不能为空',
+  '6': 'token已失效',
+  '7': 'token校验失败'
 }
 
 module.exports = RESPONSE_STATUS;
