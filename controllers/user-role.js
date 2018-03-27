@@ -2,9 +2,10 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 17:29:00
+ * @Last Modified time: 2018-03-27 21:26:34
  */
 const jwt = require('jsonwebtoken')
+const jwtConfig = require('../config/jwtConfig')
 const RESPONSE_STATUS = require('../config/status')
 const studentInfoModel = require('../models/student-info')
 /**
@@ -35,11 +36,11 @@ function login (req, res, next) {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
+      accessToken: jwt.sign({ studentNumber: studentNumber },
+        jwtConfig.secret, {
+          expiresIn: 60 * 10            // token过期时间: 24小时
+      }),
       value: student,
-      accessToken: jwt.sign({ number: studentNumber },
-        'secret', {
-          expiresIn: 60 * 60 * 24            // token过期时间: 24小时
-      })
     })
   })
 }
