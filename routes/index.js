@@ -1,4 +1,5 @@
 const userRole = require('./user-role')
+const admin = require('./admin')
 const activity = require('./activity')
 const announcement = require('./announcement')
 const corporation = require('./corporation')
@@ -11,6 +12,7 @@ const studentJobRel = require('./student-job-rel')
 
 module.exports = {
   userRole,
+  admin,
   announcement,
   activity,
   corporation,

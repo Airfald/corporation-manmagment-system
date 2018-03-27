@@ -2,86 +2,82 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 14:33:59
+ * @Last Modified time: 2018-03-27 14:08:34
  */
 const RESPONSE_STATUS = require('../config/status')
-const activityModel = require('../models/activity')
+const adminModel = require('../models/admin')
 /**
- * 新建一个活动信息
+ * 新建一个学生职位关联表
  * @param {any} req
  * @param {any} res
  * @param {any} next
  */
 function create (req, res, next) {
   let data = req.body
-  activityModel.create({
-    adminId: data.admin,
-    name: data.name,
-    address: data.address,
-    description: data.description,
-    time: data.time,
-    chargeName: data.chargeName,
-    chargeTelphone: data.chargeTelphone
-  }).then(activity => {
+  adminModel.create({
+    studentId: data.studentId,
+    activityId: data.activityId,
+    corporationId: data.corporationId
+  }).then(admin => {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: activity
+      value: admin
     })
   })
 }
 /**
- * 删除一活动信息
+ * 删除一学生职位关联表
  * @param {any} req
  * @param {any} res
  * @param {any} next
  */
-function deleteActivity (req, res, next) {
-  let activityId = req.query.id
-  activityModel.findOne({
-    where: { id: activityId }
-  }).then(activity => {
-    if (activity !== null) {
-      activityModel.destroy({
-        where: { id: activityId }
+function deleteAdmin (req, res, next) {
+  let adminId = req.query.id
+  adminModel.findOne({
+    where: { id: adminId }
+  }).then(admin => {
+    if (admin !== null) {
+      adminModel.destroy({
+        where: { id: adminId }
       }).then(data => {
         res.json({
           errCode: 0,
           errMsg: RESPONSE_STATUS[0],
-          value: activity
+          value: admin
         })
       })
     } else {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1],
-        value: activity
+        value: admin
       })
     }
   })
 }
 /**
- * 更活动信息信息
+ * 更学生职位关联表信息
  * @param {any} req
  * @param {any} res
  * @param {any} next
  */
 function update (req, res, next) {
   let data = req.body
-  let activityId = req.body.id
+  let adminId = req.body.id
   let filedObj = {}
   for (let key in data) {
     if (key !== 'id') {
       filedObj[key] = data[key]
     }
   }
-  activityModel.update(filedObj, {
-    where: { id: activityId }
-  }).then(activity => {
+  adminModel.update(filedObj, {
+    where: { id: adminId }
+  }).then(admin => {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: activity
+      value: admin
     })
   })
 }
@@ -92,21 +88,21 @@ function update (req, res, next) {
  * @param {any} next
  */
 function view (req, res, next) {
-  let activityId = req.query.id
-  activityModel.findOne({
-    where: { id: activityId }
-  }).then(activity => {
-    if (activity !== null) {
+  let adminId = req.query.id
+  adminModel.findOne({
+    where: { id: adminId }
+  }).then(admin => {
+    if (admin !== null) {
       res.json({
         errCode: 0,
         errMsg: RESPONSE_STATUS[0],
-        value: activity
+        value: admin
       })
     } else {
       res.json({
         errCode: 1,
         errMsg: RESPONSE_STATUS[1],
-        value: activity
+        value: admin
       })
     }
   })
@@ -114,7 +110,7 @@ function view (req, res, next) {
 
 module.exports = {
   create,
-  deleteActivity,
+  deleteAdmin,
   update,
   view
 }

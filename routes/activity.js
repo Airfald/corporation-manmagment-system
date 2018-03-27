@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var activityController = require('../controllers/activity')
+const express = require('express')
+const router = express.Router()
+const activityController = require('../controllers/activity')
 
-router.get('/activity/view', activityController.viewActivity);
-router.get('/activity/save', activityController.saveActivity);
-router.get('/activity/delete', activityController.deleteActivity);
+router.post('/activity/create', activityController.create)
+router.post('/activity/update', activityController.update)
+router.get('/activity/deleteActivity', activityController.deleteActivity)
+router.get('/activity/view', activityController.view)
 
-module.exports = router;
+module.exports = router
