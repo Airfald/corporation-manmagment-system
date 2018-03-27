@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const leaveMessageController = require('../controllers/leave-message')
+const studentActivityRelController = require('../controllers/student-activity-rel')
 
-router.post('/leaveMessage/create', leaveMessageController.create)
-router.post('/leaveMessage/update', leaveMessageController.update)
-router.get('/leaveMessage/deleteLeaveMessage', leaveMessageController.deleteLeaveMessage)
-router.get('/leaveMessage/view', leaveMessageController.view)
+router.post('/studentActivityRel/create', studentActivityRelController.create)
+router.post('/studentActivityRel/update', studentActivityRelController.update)
+router.get('/studentActivityRel/deletestudentActivityRel', studentActivityRelController.deleteStudentActivityRel)
+router.get('/studentActivityRel/view', studentActivityRelController.view)
 
 module.exports = router

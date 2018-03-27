@@ -5,7 +5,9 @@ const corporation = require('./corporation')
 const department = require('./department')
 const job = require('./job')
 const leaveMessage = require('./leave-message')
-
+const studentActivityRel = require('./student-activity-rel')
+const studentCorporationRel = require('./student-corporation-rel')
+const studentJobRel = require('./student-job-rel')
 
 module.exports = {
   userRole,
@@ -14,5 +16,8 @@ module.exports = {
   corporation,
   department,
   job,
-  leaveMessage
+  leaveMessage,
+  studentActivityRel,
+  studentCorporationRel,
+  studentJobRel
 }
