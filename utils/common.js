@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-22 16:25:19
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-24 10:49:55
+ * @Last Modified time: 2018-03-27 17:11:35
  * /
 /**
  * 自己封装一层通过此函数自动加上id, created_at, update_at等字段
@@ -69,6 +69,18 @@ function splitWord (string) {
   return resultString
 }
 
+function getModelList (pageSize, pageNum, modelObject) {
+  modelObject.findAndCountAll({
+    // where: { },                      　　 //为空，获取全部，也可以自己添加条件
+    offset: (pageNum - 1) * pageSize,       //开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目
+    limit: pageSize                        //每页限制返回的数据条数
+  }).then(list => {
+
+  })
+}
+
 module.exports = {
-  defineModel
+  defineModel,
+  splitWord,
+  getModelList
 }

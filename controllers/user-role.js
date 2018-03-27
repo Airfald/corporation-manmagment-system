@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 16:16:49
+ * @Last Modified time: 2018-03-27 17:29:00
  */
 const jwt = require('jsonwebtoken')
 const RESPONSE_STATUS = require('../config/status')
@@ -194,6 +194,42 @@ function viewUser (req, res, next) {
     }
   })
 }
+/**
+ * 获取学生列表
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ */
+function studentList (req, res, next) {
+  let pageSize = Number(req.query.pageSize)
+  let pageNum = Number(req.query.pageNum)
+  let hasNextPage = true
+  let hasPreviousPage = true
+
+  studentInfoModel.findAndCountAll({
+    // where: '',                       //为空，获取全部，也可以自己添加条件
+    offset: (pageNum - 1) * pageSize,   //开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目
+    limit: pageSize                     //每页限制返回的数据条数
+  }).then(data => {
+    if (pageNum <= 1 || pageNum > Math.ceil(data.count / pageSize)) {
+      hasPreviousPage = false
+    }
+    if (pageNum * pageSize > data.count) {
+      hasNextPage = false
+    }
+
+    res.json({
+      errCode: 0,
+      errMsg: RESPONSE_STATUS[0],
+      value: {
+        hasPreviousPage: hasPreviousPage,
+        hasNextPage:　hasNextPage,
+        total: data.count,
+        list: data.rows
+      }
+    })
+  })
+}
 
 module.exports = {
   login,
@@ -201,5 +237,6 @@ module.exports = {
   createUser,
   deleteUser,
   updatedUser,
-  viewUser
+  viewUser,
+  studentList
 }
