@@ -1,10 +1,11 @@
-var express = require('express')
-var router = express.Router()
-var departmentController = require('../controllers/department')
+const express = require('express')
+const router = express.Router()
+const departmentController = require('../controllers/department')
+const verifyToken = require('../middleware/verify-token')
 
-router.post('/department/create', departmentController.create)
-router.post('/department/update', departmentController.update)
-router.get('/department/deleteDepartment', departmentController.deleteDepartment)
-router.get('/department/view', departmentController.view)
+router.post('/department/create', verifyToken, departmentController.create)
+router.post('/department/update', verifyToken, departmentController.update)
+router.get('/department/deleteDepartment', verifyToken, departmentController.deleteDepartment)
+router.get('/department/view', verifyToken, departmentController.view)
 
 module.exports = router

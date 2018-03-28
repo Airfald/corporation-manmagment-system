@@ -1,10 +1,11 @@
-var express = require('express')
-var router = express.Router()
-var corporationController = require('../controllers/corporation')
+const express = require('express')
+const router = express.Router()
+const corporationController = require('../controllers/corporation')
+const verifyToken = require('../middleware/verify-token')
 
-router.post('/corporation/create', corporationController.create);
-router.post('/corporation/update', corporationController.update);
-router.get('/corporation/deleteCorporation', corporationController.deleteCorporation);
-router.get('/corporation/view', corporationController.view);
+router.post('/corporation/create', verifyToken, corporationController.create);
+router.post('/corporation/update', verifyToken, corporationController.update);
+router.get('/corporation/deleteCorporation', verifyToken, corporationController.deleteCorporation);
+router.get('/corporation/view', verifyToken, corporationController.view);
 
 module.exports = router;

@@ -2,12 +2,13 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 21:26:34
+ * @Last Modified time: 2018-03-28 09:19:14
  */
 const jwt = require('jsonwebtoken')
 const jwtConfig = require('../config/jwtConfig')
 const RESPONSE_STATUS = require('../config/status')
 const studentInfoModel = require('../models/student-info')
+const utils = require('../utils/common')
 /**
  * 用户登录 post
  * @param {any} req
@@ -38,7 +39,7 @@ function login (req, res, next) {
       errMsg: RESPONSE_STATUS[0],
       accessToken: jwt.sign({ studentNumber: studentNumber },
         jwtConfig.secret, {
-          expiresIn: 60 * 10            // token过期时间: 24小时
+          expiresIn: 60 * 60 * 24               // token过期时间: 24小时
       }),
       value: student,
     })
@@ -202,35 +203,48 @@ function viewUser (req, res, next) {
  * @param {any} next
  */
 function studentList (req, res, next) {
-  let pageSize = Number(req.query.pageSize)
-  let pageNum = Number(req.query.pageNum)
-  let hasNextPage = true
-  let hasPreviousPage = true
-
-  studentInfoModel.findAndCountAll({
-    // where: '',                       //为空，获取全部，也可以自己添加条件
-    offset: (pageNum - 1) * pageSize,   //开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目
-    limit: pageSize                     //每页限制返回的数据条数
-  }).then(data => {
-    if (pageNum <= 1 || pageNum > Math.ceil(data.count / pageSize)) {
-      hasPreviousPage = false
-    }
-    if (pageNum * pageSize > data.count) {
-      hasNextPage = false
-    }
-
+  let pageSize = req.query.pageSize
+  let pageNum = req.query.pageNum
+  utils.getModelList(pageSize, pageNum, studentInfoModel, {}).then(value => {
     res.json({
       errCode: 0,
       errMsg: RESPONSE_STATUS[0],
-      value: {
-        hasPreviousPage: hasPreviousPage,
-        hasNextPage:　hasNextPage,
-        total: data.count,
-        list: data.rows
-      }
+      value: value
     })
   })
 }
+
+
+// function studentList (req, res, next) {
+//   let pageSize = Number(req.query.pageSize)
+//   let pageNum = Number(req.query.pageNum)
+//   let hasNextPage = true
+//   let hasPreviousPage = true
+
+//   studentInfoModel.findAndCountAll({
+//     // where: '',                       //为空，获取全部，也可以自己添加条件
+//     offset: (pageNum - 1) * pageSize,   //开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目
+//     limit: pageSize                     //每页限制返回的数据条数
+//   }).then(data => {
+//     if (pageNum <= 1 || pageNum > Math.ceil(data.count / pageSize)) {
+//       hasPreviousPage = false
+//     }
+//     if (pageNum * pageSize > data.count) {
+//       hasNextPage = false
+//     }
+
+//     res.json({
+//       errCode: 0,
+//       errMsg: RESPONSE_STATUS[0],
+//       value: {
+//         hasPreviousPage: hasPreviousPage,
+//         hasNextPage:　hasNextPage,
+//         total: data.count,
+//         list: data.rows
+//       }
+//     })
+//   })
+// }
 
 module.exports = {
   login,

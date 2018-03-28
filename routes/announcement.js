@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var announcementController = require('../controllers/announcement')
+const express = require('express');
+const router = express.Router();
+const announcementController = require('../controllers/announcement')
+const verifyToken = require('../middleware/verify-token')
 
-router.post('/announcement/create', announcementController.create);
-router.post('/announcement/update', announcementController.update);
-router.get('/announcement/deleteAnnounce', announcementController.deleteAnnounce);
-router.get('/announcement/view', announcementController.view);
+router.post('/announcement/create', verifyToken, announcementController.create);
+router.post('/announcement/update', verifyToken, announcementController.update);
+router.get('/announcement/deleteAnnounce', verifyToken, announcementController.deleteAnnounce);
+router.get('/announcement/view', verifyToken, announcementController.view);
 
 module.exports = router;
