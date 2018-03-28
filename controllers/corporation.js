@@ -2,10 +2,11 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-26 20:01:35
+ * @Last Modified time: 2018-03-28 17:50:09
  */
-var RESPONSE_STATUS = require('../config/status')
-var corporationModel = require('../models/corporation')
+const RESPONSE_STATUS = require('../config/status')
+const corporationModel = require('../models/corporation')
+const utils = require('../utils/common')
 /**
  * 新建一个社团
  * @param {any} req
@@ -98,10 +99,29 @@ function view (req, res, next) {
     })
   })
 }
+/**
+ * 获取社团的列表
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ */
+function corporationList (req, res, next) {
+  let pageSize = req.query.pageSize
+  let pageNum = req.query.pageNum
+  utils.getModelList(pageSize, pageNum, corporationModel, {}).then(value => {
+    res.json({
+      errCode: 0,
+      errMsg: RESPONSE_STATUS[0],
+      value: value
+    })
+  })
+}
+
 
 module.exports = {
   create,
   deleteCorporation,
   update,
-  view
+  view,
+  corporationList
 }

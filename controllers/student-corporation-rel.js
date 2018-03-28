@@ -2,10 +2,13 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 11:02:17
+ * @Last Modified time: 2018-03-28 17:17:40
  */
 const RESPONSE_STATUS = require('../config/status')
 const studentCorporationRelModel = require('../models/student-corporation-rel')
+const studentInfoModel = require('../models/student-info')
+const corporationModel = require('../models/corporation')
+
 /**
  * 新建一个学生社团关联表
  * @param {any} req
@@ -106,10 +109,32 @@ function view (req, res, next) {
     }
   })
 }
+/**
+ * 获取某个社团所有的学生
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ */
+function getCorporationStudentList (req, res, next) {
+  let corporationId = req.query.id
+  console.log(corporationId)
+
+  studentCorporationRelModel.findAll({
+    where: { id: corporationId },
+    attributes: ['studentId']
+  }).then(data => {
+    res.json({
+      errCode: 0,
+      errMsg: RESPONSE_STATUS[0],
+      value: data
+    })
+  })
+}
 
 module.exports = {
   create,
   deleteStudentCorporationRel,
   update,
-  view
+  view,
+  getCorporationStudentList
 }

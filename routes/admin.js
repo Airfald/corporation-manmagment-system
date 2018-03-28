@@ -7,5 +7,6 @@ router.post('/admin/create', verifyToken, adminController.create)
 router.post('/admin/update', verifyToken, adminController.update)
 router.get('/admin/deleteAdmin', verifyToken, adminController.deleteAdmin)
 router.get('/admin/view', verifyToken, adminController.view)
+router.get('/admin/adminList', verifyToken, adminController.adminList)
 
 module.exports = router

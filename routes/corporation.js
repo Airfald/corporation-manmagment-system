@@ -7,5 +7,6 @@ router.post('/corporation/create', verifyToken, corporationController.create);
 router.post('/corporation/update', verifyToken, corporationController.update);
 router.get('/corporation/deleteCorporation', verifyToken, corporationController.deleteCorporation);
 router.get('/corporation/view', verifyToken, corporationController.view);
+router.get('/corporation/corporationList', verifyToken, corporationController.corporationList);
 
 module.exports = router;

@@ -2,10 +2,11 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 09:37:13
+ * @Last Modified time: 2018-03-28 17:57:59
  */
 const RESPONSE_STATUS = require('../config/status')
 const jobModel = require('../models/job')
+const utils = require('../utils/common')
 /**
  * 新建一个职位
  * @param {any} req
@@ -15,7 +16,7 @@ const jobModel = require('../models/job')
 function create (req, res, next) {
   let data = req.body
   jobModel.create({
-    departmentId: data.departmentId,
+    jobId: data.jobId,
     name: data.name,
     description: data.description
   }).then(job => {
@@ -107,10 +108,28 @@ function view (req, res, next) {
     }
   })
 }
+/**
+ * 获取职位的列表
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ */
+function jobList (req, res, next) {
+  let pageSize = req.query.pageSize
+  let pageNum = req.query.pageNum
+  utils.getModelList(pageSize, pageNum, jobModel, {}).then(value => {
+    res.json({
+      errCode: 0,
+      errMsg: RESPONSE_STATUS[0],
+      value: value
+    })
+  })
+}
 
 module.exports = {
   create,
   deleteJob,
   update,
-  view
+  view,
+  jobList
 }

@@ -1,3 +1,9 @@
+/*
+ * @Author: 欧贺福
+ * @Date: 2018-03-28 15:55:04
+ * @Last Modified by: 欧贺福
+ * @Last Modified time: 2018-03-28 16:15:04
+ */
 const userRole = require('./user-role')
 const admin = require('./admin')
 const activity = require('./activity')

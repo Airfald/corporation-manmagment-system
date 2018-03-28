@@ -7,5 +7,6 @@ router.post('/job/create', verifyToken, jobController.create)
 router.post('/job/update', verifyToken, jobController.update)
 router.get('/job/deleteJob', verifyToken, jobController.deleteJob)
 router.get('/job/view', verifyToken, jobController.view)
+router.get('/job/jobList', verifyToken, jobController.jobList)
 
 module.exports = router

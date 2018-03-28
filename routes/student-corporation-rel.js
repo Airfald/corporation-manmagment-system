@@ -7,5 +7,6 @@ router.post('/studentCorporationRel/create', verifyToken, studentCorporationRelC
 router.post('/studentCorporationRel/update', verifyToken, studentCorporationRelController.update)
 router.get('/studentCorporationRel/deleteStudentCorporationRel', verifyToken, studentCorporationRelController.deleteStudentCorporationRel)
 router.get('/studentCorporationRel/view', verifyToken, studentCorporationRelController.view)
+router.get('/studentCorporationRel/getCorporationStudentList', verifyToken, studentCorporationRelController.getCorporationStudentList)
 
 module.exports = router
