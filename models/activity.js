@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-23 10:51:48
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-27 14:25:12
+ * @Last Modified time: 2018-05-04 21:10:47
  */
 const Sequelize = require('sequelize')
 const utils = require('../utils/common')
@@ -33,6 +33,10 @@ const activityModel = utils.defineModel('activity', {
     allowNull: true,
   },
   chargeTelphone: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  corporation: {
     type: Sequelize.STRING,
     allowNull: true,
   }

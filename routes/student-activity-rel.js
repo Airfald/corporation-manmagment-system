@@ -8,5 +8,6 @@ router.post('/studentActivityRel/update', verifyToken, studentActivityRelControl
 router.get('/studentActivityRel/deletestudentActivityRel', verifyToken, studentActivityRelController.deleteStudentActivityRel)
 router.get('/studentActivityRel/view', verifyToken, studentActivityRelController.view)
 router.get('/studentActivityRel/studentActivityRelList', verifyToken, studentActivityRelController.studentActivityRelList)
+router.get('/studentActivityRel/getActivityStudentList', verifyToken, studentActivityRelController.getActivityStudentList)
 
 module.exports = router

@@ -41,6 +41,10 @@ const studentInfoModel = utils.defineModel('student_info', {
   telphone: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: true
   }
 })
 

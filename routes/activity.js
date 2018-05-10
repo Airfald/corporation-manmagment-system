@@ -8,5 +8,6 @@ router.post('/activity/update', verifyToken, activityController.update)
 router.get('/activity/deleteActivity', verifyToken, activityController.deleteActivity)
 router.get('/activity/view', verifyToken, activityController.view)
 router.get('/activity/activityList', verifyToken, activityController.activityList)
+router.post('/activity/joinActivity', verifyToken, activityController.joinActivity)
 
 module.exports = router

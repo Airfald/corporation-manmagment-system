@@ -2,10 +2,11 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-28 17:50:09
+ * @Last Modified time: 2018-05-10 19:47:48
  */
 const RESPONSE_STATUS = require('../config/status')
 const corporationModel = require('../models/corporation')
+const studentCorporationModel = require('../models/student-corporation-rel')
 const utils = require('../utils/common')
 /**
  * 新建一个社团
@@ -108,20 +109,52 @@ function view (req, res, next) {
 function corporationList (req, res, next) {
   let pageSize = req.query.pageSize
   let pageNum = req.query.pageNum
-  utils.getModelList(pageSize, pageNum, corporationModel, {}).then(value => {
-    res.json({
-      errCode: 0,
-      errMsg: RESPONSE_STATUS[0],
-      value: value
+  if (pageSize && pageNum) {
+    utils.getModelList(pageSize, pageNum, corporationModel, {}).then(value => {
+      res.json({
+        errCode: 0,
+        errMsg: RESPONSE_STATUS[0],
+        value: value
+      })
     })
-  })
+  }
 }
 
+// 参加社团
+function joinCorporation (req, res, next) {
+  let data = req.body
+  studentCorporationModel.findOne({
+    where: {
+      studentId: data.studentId,
+      corporationId: data.corporationId
+    }
+  }).then(joinData => {
+    if (joinData == null) {
+      studentCorporationModel.create({
+        studentId: data.studentId,
+        corporationId: data.corporationId
+      }).then(data => {
+        res.json({
+          errCode: 0,
+          errMsg: RESPONSE_STATUS[0],
+          value: joinData
+        })
+      })
+    } else {
+      res.json({
+        errCode: 9,
+        errMsg: '您已报名此社团，请勿重复操作！',
+        value: joinData
+      })
+    }
+  })
+}
 
 module.exports = {
   create,
   deleteCorporation,
   update,
   view,
-  corporationList
+  corporationList,
+  joinCorporation
 }

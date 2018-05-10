@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-28 09:19:14
+ * @Last Modified time: 2018-05-10 23:08:11
  */
 const jwt = require('jsonwebtoken')
 const jwtConfig = require('../config/jwtConfig')
@@ -20,29 +20,27 @@ function login (req, res, next) {
   let studentNumber = req.body.number
   let studentPassword = req.body.password
   studentInfoModel.findOne({
-    where: { number: studentNumber }
+    where: {
+      number: studentNumber,
+      password: studentPassword
+    }
   }).then(student => {
     if (student === null) {
       res.json({
         errCode: 1,
-        errMsg: RESPONSE_STATUS[1]
+        errMsg: RESPONSE_STATUS[8]
       })
-    }
-    if (student.password !== studentPassword) {
+    } else {
       res.json({
-        errCode: 2,
-        errMsg: RESPONSE_STATUS[2]
+        errCode: 0,
+        errMsg: RESPONSE_STATUS[0],
+        accessToken: jwt.sign({ studentNumber: studentNumber },
+          jwtConfig.secret, {
+            expiresIn: 60 * 60 * 24               // token过期时间: 24小时
+        }),
+        value: student,
       })
     }
-    res.json({
-      errCode: 0,
-      errMsg: RESPONSE_STATUS[0],
-      accessToken: jwt.sign({ studentNumber: studentNumber },
-        jwtConfig.secret, {
-          expiresIn: 60 * 60 * 24               // token过期时间: 24小时
-      }),
-      value: student,
-    })
   })
 }
 
@@ -102,7 +100,8 @@ function createUser (req, res, next) {
         age: data.age || null,
         sex: data.sex || null,
         email: data.email || null,
-        telphone: data.telphone || null
+        telphone: data.telphone || null,
+        isAdmin: data.isAdmin || null
       }).then(student => {
         res.json({
           errCode: 0,

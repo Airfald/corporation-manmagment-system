@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-28 18:01:30
+ * @Last Modified time: 2018-05-05 13:42:26
  */
 const RESPONSE_STATUS = require('../config/status')
 const leaveMessageModel = require('../models/leave-message')
@@ -16,8 +16,8 @@ const utils = require('../utils/common')
 function create (req, res, next) {
   let data = req.body
   leaveMessageModel.create({
-    studentId: data.studentId,
-    leaveMessageId: data.leaveMessageId,
+    // studentId: data.studentId,
+    // leaveMessageId: data.leaveMessageId,
     content: data.content
   }).then(leaveMessage => {
     res.json({

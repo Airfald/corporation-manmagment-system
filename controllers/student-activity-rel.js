@@ -2,10 +2,11 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-28 18:07:48
+ * @Last Modified time: 2018-05-10 22:25:48
  */
 const RESPONSE_STATUS = require('../config/status')
 const studentActivityRelModel = require('../models/student-activity-rel')
+const studentModel = require('../models/student-info')
 const utils = require('../utils/common')
 /**
  * 新建一个学生活动关联表
@@ -126,10 +127,32 @@ function studentActivityRelList (req, res, next) {
   })
 }
 
+/**
+ * 获取某个活动所有的学生
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ */
+function getActivityStudentList (req, res, next) {
+  let activityId = req.query.id
+
+  studentActivityRelModel.findAll({
+    where: { activityId: activityId },
+    attributes: ['studentId']
+  }).then(data => {
+    res.json({
+      errCode: 0,
+      errMsg: RESPONSE_STATUS[0],
+      value: data
+    })
+  })
+}
+
 module.exports = {
   create,
   deleteStudentActivityRel,
   update,
   view,
-  studentActivityRelList
+  studentActivityRelList,
+  getActivityStudentList
 }

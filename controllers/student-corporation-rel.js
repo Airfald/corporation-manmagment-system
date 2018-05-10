@@ -2,7 +2,7 @@
  * @Author: 欧贺福
  * @Date: 2018-03-13 20:40:39
  * @Last Modified by: 欧贺福
- * @Last Modified time: 2018-03-28 17:17:40
+ * @Last Modified time: 2018-05-10 22:05:24
  */
 const RESPONSE_STATUS = require('../config/status')
 const studentCorporationRelModel = require('../models/student-corporation-rel')
@@ -120,7 +120,7 @@ function getCorporationStudentList (req, res, next) {
   console.log(corporationId)
 
   studentCorporationRelModel.findAll({
-    where: { id: corporationId },
+    where: { corporationId: corporationId },
     attributes: ['studentId']
   }).then(data => {
     res.json({
